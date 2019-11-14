@@ -6,7 +6,7 @@ PHPで入力した文章の要約ができます。要約は抽出的要約と�
 
 ## 3.スタートガイド
 ### 3.1 必要条件
-1. PHP/Pythonが動く環境<br>
+1. PHPが動く環境<br>
 2. MeCab向けにC++ コンパイラ(g++など)とiconv(libiconv)
 3. UTF-8の学習モデル生成用の日本語テキストデータ(以降「モデル生成用テキスト」)
 
@@ -14,8 +14,10 @@ PHPで入力した文章の要約ができます。要約は抽出的要約と�
 1. php-sentence-summarizationを自分の環境に配置<br>
 2. MeCabと辞書のインストール(後述)<br>
 3. [php-mecab](https://github.com/rsky/php-mecab)のインストール<br>
-4. [php-ML](https://php-ml.readthedocs.io/en/latest/)のインストール(下記コマンドを実行)
-```composer install```
+4. [php-ML](https://php-ml.readthedocs.io/en/latest/)のインストール(下記コマンドを実行)<br>
+```
+$ composer install
+```
 ### 3.2 MeCabと辞書のインストール
 MeCabと使用する辞書をインストールします。
 
@@ -55,7 +57,8 @@ EOS
 ### 3.3 モデル生成用テキストを用いた学習モデル生成
 大きく分けて事前処理と本処理に分かれます。
 #### 3.3.1 事前処理
-「モデル生成用テキスト」に対してMeCabを用いて分かち書き(品詞分割)をします。<br>
+「モデル生成用テキスト」に対してMeCabを用いて分かち書きをします。<br>
+分かち書きが済んでいる場合は次に進んでください<br>
 コマンドラインで実行の場合は下記になります。<br>
 ```$ mecab [入力ファイル] -d [辞書ファイルパス] -O wakati -o [出力ファイル名]```
 

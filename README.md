@@ -13,12 +13,10 @@ PHPで入力した文章の要約ができます。要約は抽出的要約と�
 ### 3.2 インストール(使用するツール群)
 1. php-sentence-summarizationを自分の環境に配置<br>
 2. MeCabと辞書のインストール(後述)<br>
-3. [php-mecab](https://github.com/rsky/php-mecab)のインストール<br>
-4. [php-ML](https://php-ml.readthedocs.io/en/latest/)のインストール(下記コマンドを実行)<br>
-```
-$ composer install
-```
-### 3.2 MeCabと辞書のインストール
+3. [php-mecab](https://github.com/rsky/php-mecab)のインストール(後述)<br>
+4. [php-ML](https://php-ml.readthedocs.io/en/latest/)のインストール(後述)<br>
+
+#### 3.2.1 MeCabと辞書のインストール
 MeCabと使用する辞書をインストールします。
 
 1. MeCabのインストール
@@ -52,6 +50,26 @@ $ echo "今日は何の日" | mecab [-d 辞書のパス]
 の	助詞,連体化,*,*,*,*,の,ノ,ノ
 日	名詞,非自立,副詞可能,*,*,*,日,ヒ,ヒ
 EOS
+```
+#### 3.2.2 php-mecabのインストール
+
+```
+# cd /usr/local/src/
+# git clone https://github.com/rsky/php-mecab.git
+# cd /usr/local/src/php-mecab/mecab
+# phpize
+# ./configure --with-php-config=/usr/bin/php-config --with-mecab=/usr/bin/mecab-config
+# make
+# make test
+# make install
+
+```
+
+#### 3.2.3 php-MLのインストール
+下記コマンドを実行
+
+```
+$ composer install
 ```
 
 ### 3.3 モデル生成用テキストを用いたモデル生成

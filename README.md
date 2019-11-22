@@ -58,11 +58,15 @@ EOS
 # git clone https://github.com/rsky/php-mecab.git
 # cd /usr/local/src/php-mecab/mecab
 # phpize
-# ./configure --with-php-config=/usr/bin/php-config --with-mecab=/usr/bin/mecab-config
+# ./configure
 # make
-# make test
 # make install
 
+# vi /etc/php.ini
+(環境により異なる)
+下記コードを記載
+extension=mecab.so
+mecab.default_dicdir=[辞書パス]
 ```
 
 #### 3.2.3 php-MLのインストール

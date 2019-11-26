@@ -63,11 +63,14 @@ foreach ($texts as $sentence) {
     }
 }
 
+//全体のTFIDF最大値
+$tfidf_max =max($words_tfidf);
+
 $fpout = fopen($outputfile_name, "w");
 
-//単語とTFIDF値の統合
+//単語とTFIDF値を元にした値の統合
 for ($i = 0; $i < $words_count; $i++) {
-    fwrite($fpout, $words[$i] . "," . $words_tfidf[$i] . "\n");
+    fwrite($fpout, $words[$i] . "," . number_format($words_tfidf[$i]/$tfidf_max,5,null,'') . "\n");
 
 }
 fclose($fpout);

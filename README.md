@@ -6,7 +6,7 @@ PHPで入力した文章の要約ができます。要約は抽出的要約と�
 
 ## 3.スタートガイド
 ### 3.1 必要条件
-1. PHPが動く環境<br>
+1. PHPとApacheが動く環境<br>
 2. MeCab向けにC++ コンパイラ(g++など)とiconv(libiconv)
 3. UTF-8のモデル生成用の日本語テキストデータ(以降「モデル生成用テキスト」)
 
@@ -102,10 +102,18 @@ $ php tool/ml_model_create.php [入力ファイルパス] [出力ファイルパ
 ※メモリエラーになる場合はphp.iniのmemory_limitを増やしてください。
 
 ### 3.4 モデルを用いた文章要約
-Coming Soon
+#### 3.4.1 ブラウザを用いた方法
+/index.phpにアクセスしてください。<br>
+「要約対象」に要約対象の文章、「出力文の数」に要約結果の文の数を入力して「submit」をクリックすると結果が下部に表示されます。
 
+#### 3.4.2 コマンドラインから実行
+下記コマンドを実行してください。
+
+```
+$ php lib/txt2sumally.php [要約対象のテキストファイル] [出力文の数]
+```
 ## 著者
 ・[TatsuyaUshioda](https://github.com/TatsuyaUshioda)
 
 ## License
-Apache License 2.0
+LICENSEに書いてます。

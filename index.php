@@ -3,11 +3,14 @@ require_once "lib/txt2sumally.php";
 
 $textarea = "";
 $sumally_num = "";
+$sumally_texts = "";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['sumally_num'] > 0) {
     $textarea = $_POST['textarea'];
     $sumally_num = $_POST['sumally_num'];
     $sumally_texts = txt2sumally($textarea, $sumally_num);
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $textarea = $_POST['textarea'];
 }
 
 ?>
@@ -30,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php
 if ($textarea && $sumally_texts) {
-    echo "<h2>要約結果</h2>";
+    echo "<h2>要約結果(".$sumally_num ."文)</h2>";
     foreach ($sumally_texts as $text) {
         echo "<p>" . $text . "</p>";
     }

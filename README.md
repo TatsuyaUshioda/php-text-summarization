@@ -6,17 +6,17 @@ PHPで入力した文章の要約ができます。要約は抽出的要約と�
 
 ## 3.スタートガイド
 ### 3.1 必要条件
-1. PHP/Pythonが動く環境<br>
+1. PHPとApacheが動く環境<br>
 2. MeCab向けにC++ コンパイラ(g++など)とiconv(libiconv)
-3. UTF-8の学習モデル生成用の日本語テキストデータ(以降「モデル生成用テキスト」)
+3. UTF-8のモデル生成用の日本語テキストデータ(以降「モデル生成用テキスト」)
 
 ### 3.2 インストール(使用するツール群)
 1. php-sentence-summarizationを自分の環境に配置<br>
 2. MeCabと辞書のインストール(後述)<br>
-3. [php-mecab](https://github.com/rsky/php-mecab)のインストール<br>
-4. [php-ML](https://php-ml.readthedocs.io/en/latest/)のインストール(下記コマンドを実行)
-```composer install```
-### 3.2 MeCabと辞書のインストール
+3. [php-mecab](https://github.com/rsky/php-mecab)のインストール(後述)<br>
+4. [php-ML](https://php-ml.readthedocs.io/en/latest/)のインストール(後述)<br>
+
+#### 3.2.1 MeCabと辞書のインストール
 MeCabと使用する辞書をインストールします。
 
 1. MeCabのインストール
@@ -51,11 +51,36 @@ $ echo "今日は何の日" | mecab [-d 辞書のパス]
 日	名詞,非自立,副詞可能,*,*,*,日,ヒ,ヒ
 EOS
 ```
+#### 3.2.2 php-mecabのインストール
 
-### 3.3 モデル生成用テキストを用いた学習モデル生成
+```
+# cd /usr/local/src/
+# git clone https://github.com/rsky/php-mecab.git
+# cd /usr/local/src/php-mecab/mecab
+# phpize
+# ./configure
+# make
+# make install
+
+# vi /etc/php.ini
+(環境により異なる)
+下記コードを記載
+extension=mecab.so
+mecab.default_dicdir=[辞書パス]
+```
+
+#### 3.2.3 php-MLのインストール
+下記コマンドを実行
+
+```
+$ composer install
+```
+
+### 3.3 モデル生成用テキストを用いたモデル生成
 大きく分けて事前処理と本処理に分かれます。
 #### 3.3.1 事前処理
-「モデル生成用テキスト」に対してMeCabを用いて分かち書き(品詞分割)をします。<br>
+「モデル生成用テキスト」に対してMeCabを用いて分かち書きをします。<br>
+分かち書きが済んでいる場合は次に進んでください<br>
 コマンドラインで実行の場合は下記になります。<br>
 ```$ mecab [入力ファイル] -d [辞書ファイルパス] -O wakati -o [出力ファイル名]```
 
@@ -68,11 +93,27 @@ EOS
 ```
 テスト です が 何 か
 ```
-#### 3.3.2 本処理(学習モデル生成)
-Coming Soon
+#### 3.3.2 本処理(モデル生成)
+分かち書き済みのモデル生成用テキストを下記コマンドの入力ファイルとします。
 
+```
+$ php tool/ml_model_create.php [入力ファイルパス] [出力ファイルパス]
+```
+※メモリエラーになる場合はphp.iniのmemory_limitを増やしてください。
+
+### 3.4 モデルを用いた文章要約
+#### 3.4.1 ブラウザを用いた方法
+/index.phpにアクセスしてください。<br>
+「要約対象」に要約対象の文章、「出力文の数」に要約結果の文の数を入力して「submit」をクリックすると結果が下部に表示されます。
+
+#### 3.4.2 コマンドラインから実行
+下記コマンドを実行してください。
+
+```
+$ php lib/txt2sumally.php [要約対象のテキストファイル] [出力文の数]
+```
 ## 著者
 ・[TatsuyaUshioda](https://github.com/TatsuyaUshioda)
 
 ## License
-Apache License 2.0
+LICENSEに書いてます。

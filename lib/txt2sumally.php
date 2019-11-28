@@ -28,6 +28,20 @@ function txt2sumally($main_text, $out_line_num)
     $main_text_array = array_filter($main_text_array, 'strlen');
     $main_text_array = array_merge($main_text_array);
 
+    return summarize($main_text_array, $model_array, $out_line_num);
+}
+
+/**
+ * 要約処理
+ * @param $main_text_array
+ * 本文
+ * @param $model_array
+ * モデル
+ * @param $out_line_num
+ * 出力する文の数
+ * @return array
+ */
+function summarize($main_text_array, $model_array, $out_line_num){
     //入力文数
     $in_line_num = count($main_text_array);
 
@@ -58,9 +72,7 @@ function txt2sumally($main_text, $out_line_num)
     //重要な文を指定の出力文数取得する
     $sort = array_column($text_summarize_array, 1);
     array_multisort($sort, SORT_DESC, SORT_NUMERIC, $text_summarize_array);
-    $summarize_texts = array_column(array_slice($text_summarize_array, 0, $out_line_num), 0);
-
-    return $summarize_texts;
+    return array_column(array_slice($text_summarize_array, 0, $out_line_num), 0);
 }
 
 /**

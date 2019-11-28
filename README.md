@@ -118,4 +118,5 @@ $ php lib/txt2sumally.php [要約対象のテキストファイル] [出力文�
 ・[TatsuyaUshioda](https://github.com/TatsuyaUshioda)
 
 ## License
-LICENSEに書いてます。
+Apache License, Version 2.0
+詳しいことはLICENSEに書いてます。

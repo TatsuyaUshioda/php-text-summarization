@@ -54,7 +54,11 @@ function summarize($main_text_array, $model_array, $out_line_num){
     for ($i = 0; $i < $in_line_num; $i++) {
         $text_rank = (float)0; //
         foreach ($wakati￿_array[$i] as $words) {
-            if (array_key_exists($words, $model_array)) {
+
+            //数値を含む場合に優先
+            if(preg_match("/[0-9０-９,，.．]+/u", $words)){
+                $text_rank = $text_rank + (float)1;
+            } elseif (array_key_exists($words, $model_array)) {
                 $text_rank = $text_rank + $model_array[$words];
             } else {
                 $text_rank = $text_rank + (float)1;

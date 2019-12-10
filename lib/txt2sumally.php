@@ -9,11 +9,11 @@
  * 要約処理
  * @param $main_text
  * 要約対象文
- * @param $out_line_num
- * 出力する文の数
+ * @param $output_num_percent
+ * 出力する文の割合(パーセント表記)
  * @return array
  */
-function txt2sumally($main_text, $out_line_num)
+function txt2sumally($main_text, $output_num_percent)
 {
     $config = include 'config/model.php';
 
@@ -28,7 +28,7 @@ function txt2sumally($main_text, $out_line_num)
     $main_text_array = array_filter($main_text_array, 'strlen');
     $main_text_array = array_merge($main_text_array);
 
-    return summarize($main_text_array, $model_array, $out_line_num);
+    return summarize($main_text_array, $model_array, $output_num_percent);
 }
 
 /**
@@ -37,11 +37,11 @@ function txt2sumally($main_text, $out_line_num)
  * 本文
  * @param $model_array
  * モデル
- * @param $out_line_num
- * 出力する文の数
+ * @param $outline_num_percent
+ * 出力する文の割合(パーセント表記)
  * @return array
  */
-function summarize($main_text_array, $model_array, $out_line_num){
+function summarize($main_text_array, $model_array, $output_num_percent){
     //入力文数
     $in_line_num = count($main_text_array);
 
@@ -72,6 +72,9 @@ function summarize($main_text_array, $model_array, $out_line_num){
     unset($main_text_array);
     unset($wakati￿_array);
     unset($text_rank_array);
+
+    //入力したパーセンテージを元に出力文の数を決定
+    $out_line_num = (int)($in_line_num * ($output_num_percent / 100));
 
     //重要な文を指定の出力文数取得する
     $sort = array_column($text_summarize_array, 1);
@@ -110,7 +113,7 @@ function model_load($file)
 }
 
 //標準入力用
-//php lib/txt2sumally.php [input_file] [sumally_num]
+//php lib/txt2sumally.php [input_file] [sumally_output_num_percent]
 if (count($argv) > 2) {
     $text = file_get_contents($argv[1]);
     print_r(txt2sumally($text, $argv[2]));

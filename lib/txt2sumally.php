@@ -24,7 +24,7 @@ function txt2sumally($main_text, $output_num_percent)
     //改行の文をそれぞれ配列に保持
     $main_text = preg_replace('/\n(\s|\n)*\n/u', "\n", $main_text);
     $main_text = preg_replace('/(\s)*\n/u', "\n", $main_text);
-    $main_text_array = preg_split("/(\n|\r\n|。)/", $main_text);
+    $main_text_array = preg_split("/(\n|\r\n)/", $main_text);
     $main_text_array = array_filter($main_text_array, 'strlen');
     $main_text_array = array_merge($main_text_array);
 

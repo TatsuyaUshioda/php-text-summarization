@@ -73,10 +73,11 @@ function summarize($main_text_array, $model_array, $output_num_percent){
     unset($wakati￿_array);
     unset($text_rank_array);
 
-    //入力したパーセンテージを元に出力文の数を決定
+    //入力したパーセンテージを元に出力文の数を決定(0の場合は1とする)
     $out_line_num = (int)($in_line_num * ($output_num_percent / 100));
+    $out_line_num = $out_line_num ? $out_line_num : 1;
 
-    //重要な文を指定の出力文数取得する
+        //重要な文を指定の出力文数取得する
     $sort = array_column($text_summarize_array, 1);
     array_multisort($sort, SORT_DESC, SORT_NUMERIC, $text_summarize_array);
     return array_column(array_slice($text_summarize_array, 0, $out_line_num), 0);

@@ -90,13 +90,9 @@ function summarize($main_text_array, $model_array, $output_num_percent){
  */
 function model_load($file)
 {
-    try {
         //モデル読み込み
         $model_f = new SplFileObject($file);
         $model_f->setFlags(SplFileObject::READ_CSV);
-    } catch (RuntimeException $e) {
-        throw $e;
-    }
 
     $model_array = [];
     if ($model_f) {

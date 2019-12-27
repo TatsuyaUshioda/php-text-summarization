@@ -47,13 +47,13 @@ function summarize($main_text_array, $model_array, $output_num_percent){
 
     //入力文を分かち書き
     for ($i = 0; $i < $in_line_num; $i++) {
-        $wakati￿_array[$i] = Mecab\split($main_text_array[$i]); //php7
+        $wakati_array[$i] = Mecab\split($main_text_array[$i]); //php7
     }
 
     //重要度計算
     for ($i = 0; $i < $in_line_num; $i++) {
         $text_rank = (float)0; //
-        foreach ($wakati￿_array[$i] as $words) {
+        foreach ($wakati_array[$i] as $words) {
 
             //数値を含む場合に優先
             if(preg_match("/[0-9０-９,，.．]+/u", $words)){

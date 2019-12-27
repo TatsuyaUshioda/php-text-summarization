@@ -109,9 +109,4 @@ function model_load($file)
     return $model_array;
 }
 
-//標準入力用
-//php lib/txt2sumally.php [input_file] [sumally_output_num_percent]
-if (count($argv) > 2) {
-    $text = file_get_contents($argv[1]);
-    print_r(txt2sumally($text, $argv[2]));
-}
+

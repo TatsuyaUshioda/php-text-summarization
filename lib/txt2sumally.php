@@ -5,6 +5,8 @@
  * This software is released under Apache License Version 2.0, see LICENSE.
  */
 
+require_once "lib/wakati.php";
+
 /**
  * 要約処理
  * @param $main_text
@@ -47,7 +49,7 @@ function summarize($main_text_array, $model_array, $output_num_percent){
 
     //入力文を分かち書き
     for ($i = 0; $i < $in_line_num; $i++) {
-        $wakati_array[$i] = Mecab\split($main_text_array[$i]); //php7
+        $wakati_array[$i] = wakati_base_array($main_text_array[$i]); //php7
     }
 
     //重要度計算

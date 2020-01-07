@@ -44,45 +44,28 @@ function txt2sumally($main_text, $output_num_percent)
  */
 function summarize($main_text_array, $model_array, $output_num_percent)
 {
-    //入力文数
-    $in_line_num = count($main_text_array);
-
-    //入力文を分かち書き
-    for ($i = 0; $i < $in_line_num; $i++) {
-        $wakati_array[$i] = wakati_base_array($main_text_array[$i]); //php7
-    }
-
-    //重要度計算
-    for ($i = 0; $i < $in_line_num; $i++) {
-        $text_rank = (float)0; //
-        foreach ($wakati_array[$i] as $words) {
+    foreach ($main_text_array as $i => $text) {
+        $text_rank_array[$i] = array_reduce(wakati_base_array($text), function ($rank, $words) use ($model_array) {
 
             //数値を含む場合に優先
             if (preg_match("/[0-9０-９,，.．]+/u", $words)) {
-                $text_rank = $text_rank + (float)1;
+                return $rank = $rank + (float)1;
             } elseif (array_key_exists($words, $model_array)) {
-                $text_rank = $text_rank + $model_array[$words];
+                return $rank = $rank + $model_array[$words];
             } else {
-                $text_rank = $text_rank + (float)1;
+                return $rank = $rank + (float)1;
             }
-        }
-        $text_rank_array[$i] = $text_rank;
+        }, (float)0);
     }
 
-    //作った配列を結合
-    $text_summarize_array = array_map(null, $main_text_array, $text_rank_array);
-    unset($main_text_array);
-    unset($wakati￿_array);
-    unset($text_rank_array);
-
     //入力したパーセンテージを元に出力文の数を決定(0の場合は1とする)
-    $out_line_num = (int)($in_line_num * ($output_num_percent / 100));
+    $out_line_num = (int)(count($main_text_array) * ($output_num_percent / 100));
     $out_line_num = $out_line_num ? $out_line_num : 1;
 
     //重要な文を指定の出力文数取得する
-    $sort = array_column($text_summarize_array, 1);
-    array_multisort($sort, SORT_DESC, SORT_NUMERIC, $text_summarize_array);
-    return array_column(array_slice($text_summarize_array, 0, $out_line_num), 0);
+
+    array_multisort($text_rank_array, SORT_DESC, SORT_NUMERIC, $main_text_array);
+    return array_slice($main_text_array, 0, $out_line_num);
 }
 
 /**

@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form action="index.php" method="POST">
     <h4>要約対象</h4>
     <textarea type="text" name="textarea" maxlength="10000" placeholder="要約したい文章を入力してください" cols="100"
-              rows="50" required><?php echo $textarea ? $textarea : ""; ?></textarea>
+              rows="50" required><?php echo $textarea ? htmlspecialchars($textarea) : ""; ?></textarea>
     <h4>要約割合(%)</h4>
     <input type="number" name="sumally_num" required>%
     <input type="submit" value="submit">

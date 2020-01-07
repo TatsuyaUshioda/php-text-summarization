@@ -11,12 +11,12 @@ $textarea = "";
 $sumally_num_per = "";
 $sumally_texts = "";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['sumally_num'] > 0) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $textarea = $_POST['textarea'];
-    $sumally_num_per = $_POST['sumally_num'];
-    $sumally_texts = txt2sumally($textarea, $sumally_num_per);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $textarea = $_POST['textarea'];
+    if ($_POST['sumally_num'] > 0) {
+        $sumally_num_per = $_POST['sumally_num'];
+        $sumally_texts = txt2sumally($textarea, $sumally_num_per);
+    }
 }
 
 ?>
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['sumally_num'] > 0) {
 
 <?php
 if ($textarea && $sumally_texts) {
-    echo "<h2>要約結果(". $sumally_num_per ."%)</h2>";
+    echo "<h2>要約結果(" . $sumally_num_per . "%)</h2>";
     foreach ($sumally_texts as $text) {
         echo "<p>" . $text . "</p>";
     }

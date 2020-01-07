@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form action="index.php" method="POST">
     <h4>要約対象</h4>
     <textarea type="text" name="textarea" maxlength="10000" placeholder="要約したい文章を入力してください" cols="100"
-              rows="50" required><?php echo $textarea ? htmlspecialchars($textarea) : ""; ?></textarea>
+              rows="50" required><?php echo $textarea ? hsc($textarea) : ""; ?></textarea>
     <h4>要約割合(%)</h4>
     <input type="number" name="sumally_num" required>%
     <input type="submit" value="submit">
@@ -39,9 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php
 if ($textarea && $sumally_texts) {
-    echo "<h2>要約結果(" . $sumally_num_per . "%)</h2>";
+    echo "<h2>要約結果(" . hsc($sumally_num_per) . "%)</h2>";
     foreach ($sumally_texts as $text) {
-        echo "<p>" . $text . "</p>";
+        echo "<p>" . hsc($text) . "</p>";
     }
 } else {
     echo "<h2>要約結果</h2>";

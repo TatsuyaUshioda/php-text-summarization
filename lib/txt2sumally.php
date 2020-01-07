@@ -111,4 +111,11 @@ function model_load($file)
     return $model_array;
 }
 
-
+/**
+ * エスケープ処理
+ * @param $string
+ * @return string
+ */
+function hsc($string){
+    return htmlspecialchars($string,ENT_QUOTES,'UTF-8');
+}

@@ -12,9 +12,9 @@ $sumally_num_per = "";
 $sumally_texts = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $textarea = $_POST['textarea'];
+    $textarea = (string)filter_input(INPUT_POST,'textarea');
     if ($_POST['sumally_num'] > 0) {
-        $sumally_num_per = $_POST['sumally_num'];
+        $sumally_num_per = intval($_POST['sumally_num']);
         $sumally_texts = txt2sumally($textarea, $sumally_num_per);
     }
 }

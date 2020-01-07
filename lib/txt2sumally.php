@@ -86,10 +86,8 @@ function model_load($file)
             if (empty($line[0])) {
                 continue;
             }
-            $model_key[] = (string)$line[0];
-            $model_value[] = (float)$line[1];
+            $model_array[(string)$line[0]] = (float)$line[1];
         }
-        $model_array = array_combine($model_key, $model_value);
     }
     return $model_array;
 }

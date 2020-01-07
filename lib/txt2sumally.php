@@ -24,8 +24,7 @@ function txt2sumally($main_text, $output_num_percent)
     $model_array = model_load($model_file);
 
     //改行の文をそれぞれ配列に保持
-    $main_text = preg_replace('/\n(\s|\n)*\n/u', "\n", $main_text);
-    $main_text = preg_replace('/(\s)*\n/u', "\n", $main_text);
+    $main_text = preg_replace(['/\n(\s|\n)*\n/u', '/(\s)*\n/u'], ["\n", "\n"], $main_text);
     $main_text_array = preg_split("/(\n|\r\n)/", $main_text);
     $main_text_array = array_filter($main_text_array, 'strlen');
     $main_text_array = array_merge($main_text_array);
@@ -43,7 +42,8 @@ function txt2sumally($main_text, $output_num_percent)
  * 出力する文の割合(パーセント表記)
  * @return array
  */
-function summarize($main_text_array, $model_array, $output_num_percent){
+function summarize($main_text_array, $model_array, $output_num_percent)
+{
     //入力文数
     $in_line_num = count($main_text_array);
 
@@ -58,7 +58,7 @@ function summarize($main_text_array, $model_array, $output_num_percent){
         foreach ($wakati_array[$i] as $words) {
 
             //数値を含む場合に優先
-            if(preg_match("/[0-9０-９,，.．]+/u", $words)){
+            if (preg_match("/[0-9０-９,，.．]+/u", $words)) {
                 $text_rank = $text_rank + (float)1;
             } elseif (array_key_exists($words, $model_array)) {
                 $text_rank = $text_rank + $model_array[$words];
@@ -79,7 +79,7 @@ function summarize($main_text_array, $model_array, $output_num_percent){
     $out_line_num = (int)($in_line_num * ($output_num_percent / 100));
     $out_line_num = $out_line_num ? $out_line_num : 1;
 
-        //重要な文を指定の出力文数取得する
+    //重要な文を指定の出力文数取得する
     $sort = array_column($text_summarize_array, 1);
     array_multisort($sort, SORT_DESC, SORT_NUMERIC, $text_summarize_array);
     return array_column(array_slice($text_summarize_array, 0, $out_line_num), 0);
@@ -92,9 +92,9 @@ function summarize($main_text_array, $model_array, $output_num_percent){
  */
 function model_load($file)
 {
-        //モデル読み込み
-        $model_f = new SplFileObject($file);
-        $model_f->setFlags(SplFileObject::READ_CSV);
+    //モデル読み込み
+    $model_f = new SplFileObject($file);
+    $model_f->setFlags(SplFileObject::READ_CSV);
 
     $model_array = [];
     if ($model_f) {
@@ -116,6 +116,7 @@ function model_load($file)
  * @param $string
  * @return string
  */
-function hsc($string){
-    return htmlspecialchars($string,ENT_QUOTES,'UTF-8');
+function hsc($string)
+{
+    return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
 }

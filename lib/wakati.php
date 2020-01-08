@@ -12,16 +12,23 @@
  */
 function wakati_base_array($text)
 {
+    //正規化
+    $text = mb_convert_kana($text, "KVa");
+
     $mecab = new \MeCab\Tagger();
     $nodes = $mecab->parseToNode($text);
 
     $wakati_array = [];
     foreach ($nodes as $n) {
+        //load surface and base
+        $surface = $n->getSurface();
         $info = $n->toArray();
         $data = explode(',', $info['feature']);
 
         if ($data[6] != "*") {
             $wakati_array[] = $data[6];
+        }elseif($surface){
+            $wakati_array[] = $surface;
         }
     }
     return $wakati_array;

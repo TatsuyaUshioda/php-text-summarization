@@ -48,7 +48,7 @@ function summarize($main_text_array, $model_array, $output_num_percent)
         $text_rank_array[$i] = array_reduce(wakati_base_array($text), function ($rank, $words) use ($model_array) {
 
             //数値を含む場合に優先
-            if (preg_match("/[0-9０-９,，.．]+/u", $words)) {
+            if (preg_match("/[0-9,，.．]+/u", $words)) {
                 return $rank = $rank + (float)1;
             } elseif (array_key_exists($words, $model_array)) {
                 return $rank = $rank + $model_array[$words];

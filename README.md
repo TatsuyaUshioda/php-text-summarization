@@ -112,7 +112,7 @@ config/example.model.phpをコピーしてmodel.phpを作成<br>
 下記コマンドを実行してください。
 
 ```
-$ php lib/txt2sumally.php [要約対象のテキストファイル] [要約割合(%)]
+$ php cli/txt2sumally.php [要約対象のテキストファイル] [要約割合(%)]
 ```
 ## 著者
 ・[TatsuyaUshioda](https://github.com/TatsuyaUshioda)

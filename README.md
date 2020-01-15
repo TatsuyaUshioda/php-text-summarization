@@ -109,10 +109,11 @@ config/example.model.phpをコピーしてmodel.phpを作成<br>
 「要約対象」に要約対象の文章、「要約割合(%)」に対象文章に対する要約割合を入力して「submit」をクリックすると結果が下部に表示されます。
 
 #### 3.4.2 コマンドラインから実行
-下記コマンドを実行してください。
-
+下記コマンドを実行してください。<br>
+出力パターン(per:要約割合またはsen:要約文)を指定できます。
 ```
-$ php cli/txt2sumally.php [要約対象のテキストファイル] [要約割合(%)]
+$ php cli/txt2sumally.php [要約対象のテキストファイル] per [要約割合(%)]
+$ php cli/txt2sumally.php [要約対象のテキストファイル] sen [要約文(文)]
 ```
 ## 著者
 ・[TatsuyaUshioda](https://github.com/TatsuyaUshioda)

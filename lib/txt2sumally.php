@@ -15,7 +15,7 @@ require_once "lib/wakati.php";
  * 出力する文の割合(パーセント表記)
  * @return array
  */
-function txt2sumally($main_text, $output_num_percent)
+function txt2sumally($main_text, $output_flg, $output_num)
 {
     $config = include 'config/model.php';
 
@@ -29,7 +29,7 @@ function txt2sumally($main_text, $output_num_percent)
     $main_text_array = array_filter($main_text_array, 'strlen');
     $main_text_array = array_merge($main_text_array);
 
-    return summarize($main_text_array, $model_array, $output_num_percent);
+    return summarize($main_text_array, $model_array, $output_flg, $output_num);
 }
 
 /**
@@ -42,7 +42,7 @@ function txt2sumally($main_text, $output_num_percent)
  * 出力する文の割合(パーセント表記)
  * @return array
  */
-function summarize($main_text_array, $model_array, $output_num_percent)
+function summarize($main_text_array, $model_array, $output_flg, $output_num)
 {
     foreach ($main_text_array as $i => $text) {
         $text_rank_array[$i] = array_reduce(wakati_base_array($text), function ($rank, $words) use ($model_array) {
@@ -58,12 +58,17 @@ function summarize($main_text_array, $model_array, $output_num_percent)
         }, (float)0);
     }
 
-    //入力したパーセンテージを元に出力文の数を決定(0の場合は1とする)
-    $out_line_num = (int)(count($main_text_array) * ($output_num_percent / 100));
-    $out_line_num = $out_line_num ? $out_line_num : 1;
+    if ($output_flg === "per") {
+        //入力したパーセンテージを元に出力文の数を決定(0の場合は1とする)
+        $out_line_num = (int)(count($main_text_array) * ($output_num / 100));
+        $out_line_num = $out_line_num ? $out_line_num : 1;
+    } elseif ($output_flg === "sen") {
+        $out_line_num = $output_num;
+    } else {
+        $out_line_num = 0;
+    }
 
     //重要な文を指定の出力文数取得する
-
     array_multisort($text_rank_array, SORT_DESC, SORT_NUMERIC, $main_text_array);
     return array_slice($main_text_array, 0, $out_line_num);
 }
